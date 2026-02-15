@@ -6,6 +6,7 @@ const EMAIL = 'hello@beamupstudio.com'
 function App() {
   const [copied, setCopied] = useState(false)
   const [cursor, setCursor] = useState({ x: 0, y: 0 })
+  const [heroHover, setHeroHover] = useState(false)
 
   useEffect(() => {
     const move = (e: MouseEvent) => setCursor({ x: e.clientX, y: e.clientY })
@@ -20,9 +21,14 @@ function App() {
   }
 
   return (
-    <div className="page">
+    <div className={`page ${heroHover ? 'hero-hover' : ''}`}>
       <div
         className="custom-cursor"
+        style={{ left: cursor.x, top: cursor.y }}
+        aria-hidden
+      />
+      <div
+        className="invert-spotlight"
         style={{ left: cursor.x, top: cursor.y }}
         aria-hidden
       />
@@ -37,7 +43,11 @@ function App() {
       </header>
 
       <section className="hero">
-        <div className="hero-inner">
+        <div
+          className="hero-inner"
+          onMouseEnter={() => setHeroHover(true)}
+          onMouseLeave={() => setHeroHover(false)}
+        >
           <div className="profile-section">
             <div className="name-block">
               <h1 className="name-line">BEAMUP</h1>

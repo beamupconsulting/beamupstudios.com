@@ -8,7 +8,7 @@
   flex-direction: column;
 }
 
-/* Custom cursor: large black circle */
+/* Custom cursor: black circle; hidden over hero (spotlight takes over) */
 .custom-cursor {
   position: fixed;
   width: 38px;
@@ -18,6 +18,31 @@
   pointer-events: none;
   transform: translate(-50%, -50%);
   z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.page.hero-hover .custom-cursor {
+  opacity: 0;
+}
+
+/* Spotlight: same size as cursor, inverts only the area under it; fades in over hero */
+.invert-spotlight {
+  position: fixed;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgb(255, 255, 255);
+  mix-blend-mode: difference;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.page.hero-hover .invert-spotlight {
+  opacity: 1;
 }
 
 .header {
@@ -163,10 +188,6 @@
   line-height: 1.3em;
   color: rgb(0, 0, 0);
   text-decoration: none;
-}
-
-.email:hover {
-  text-decoration: underline;
 }
 
 .copy-btn {

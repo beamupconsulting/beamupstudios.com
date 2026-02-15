@@ -8,16 +8,41 @@
   flex-direction: column;
 }
 
-/* Custom cursor: small black circle */
+/* Custom cursor: large black circle; copy hover = bigger pill with "Copy" */
 .custom-cursor {
   position: fixed;
-  width: 10px;
-  height: 10px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: rgb(0, 0, 0);
   pointer-events: none;
   transform: translate(-50%, -50%);
   z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.2s ease, height 0.2s ease, border-radius 0.2s ease;
+}
+
+.custom-cursor--copy {
+  width: 120px;
+  height: 60px;
+  border-radius: 30px;
+}
+
+.custom-cursor__label {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgb(255, 255, 255);
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.custom-cursor--copy .custom-cursor__label {
+  opacity: 1;
 }
 
 .header {
@@ -31,7 +56,7 @@
 
 .logo {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 700;
   letter-spacing: -0.06em;
   line-height: 1.1em;
@@ -42,12 +67,12 @@
 .nav {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 40px;
 }
 
 .nav-link {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 18px;
+  font-size: 26px;
   font-weight: 500;
   letter-spacing: -0.06em;
   line-height: 1.1em;
@@ -61,14 +86,14 @@
 
 .nav-cta {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 22px;
+  font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1.2em;
   color: rgb(0, 0, 0);
   text-decoration: none;
   background: rgb(245, 245, 245);
-  padding: 16px 26px;
+  padding: 20px 32px;
 }
 
 .nav-cta:hover {
@@ -154,10 +179,10 @@
   flex-shrink: 0;
 }
 
-/* framer preset 1p380mk: 26px, 500, -0.06em, 1.3em */
+/* Larger email to match YUYA */
 .email {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 26px;
+  font-size: 34px;
   font-weight: 500;
   letter-spacing: -0.06em;
   line-height: 1.3em;
@@ -194,12 +219,12 @@
   white-space: nowrap;
 }
 
-/* framer-1jmipcb: flex 1, max-width 643px. Slightly smaller so it fits one viewport. */
+/* Larger subheading/bio to match YUYA */
 .bio {
   flex: 1 1 auto;
   min-height: 0;
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 36px;
+  font-size: 42px;
   font-weight: 500;
   letter-spacing: -0.06em;
   line-height: 1.1em;
@@ -226,8 +251,21 @@
   }
 
   .bio {
-    font-size: 30px;
+    font-size: 32px;
     max-width: 335px;
+  }
+
+  .nav-link {
+    font-size: 22px;
+  }
+
+  .nav-cta {
+    font-size: 20px;
+    padding: 18px 28px;
+  }
+
+  .email {
+    font-size: 28px;
   }
 }
 
@@ -242,12 +280,16 @@
   }
 
   .nav-link {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .nav-cta {
-    padding: 12px 20px;
-    font-size: 14px;
+    padding: 16px 24px;
+    font-size: 18px;
+  }
+
+  .email {
+    font-size: 24px;
   }
 
   .hero {

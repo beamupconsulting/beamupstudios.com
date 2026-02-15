@@ -6,6 +6,7 @@ const EMAIL = 'hello@beamupstudio.com'
 function App() {
   const [copied, setCopied] = useState(false)
   const [cursor, setCursor] = useState({ x: 0, y: 0 })
+  const [copyHover, setCopyHover] = useState(false)
 
   useEffect(() => {
     const move = (e: MouseEvent) => setCursor({ x: e.clientX, y: e.clientY })
@@ -22,10 +23,12 @@ function App() {
   return (
     <div className="page">
       <div
-        className="custom-cursor"
+        className={`custom-cursor ${copyHover ? 'custom-cursor--copy' : ''}`}
         style={{ left: cursor.x, top: cursor.y }}
         aria-hidden
-      />
+      >
+        {copyHover && <span className="custom-cursor__label">Copy</span>}
+      </div>
       <header className="header">
         <a href="/" className="logo">BEAMUP STUDIOS</a>
         <nav className="nav">
@@ -46,7 +49,11 @@ function App() {
             <div className="hero-image-placeholder" aria-hidden />
           </div>
           <div className="bio-section">
-            <div className="email-block">
+            <div
+              className="email-block"
+              onMouseEnter={() => setCopyHover(true)}
+              onMouseLeave={() => setCopyHover(false)}
+            >
               <a href={`mailto:${EMAIL}`} className="email">{EMAIL}</a>
               <button
                 type="button"

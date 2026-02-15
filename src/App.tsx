@@ -1,34 +1,80 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
 import './App.css'
 
+const EMAIL = 'hello@beamupstudio.com'
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [copied, setCopied] = useState(false)
+  const [cursor, setCursor] = useState({ x: 0, y: 0 })
+
+  useEffect(() => {
+    const move = (e: MouseEvent) => setCursor({ x: e.clientX, y: e.clientY })
+    window.addEventListener('mousemove', move)
+    return () => window.removeEventListener('mousemove', move)
+  }, [])
+
+  const copyEmail = async () => {
+    await navigator.clipboard.writeText(EMAIL)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="page">
+      <div
+        className="custom-cursor"
+        style={{ left: cursor.x, top: cursor.y }}
+        aria-hidden
+      />
+      <header className="header">
+        <a href="/" className="logo">BEAMUP STUDIOS</a>
+        <nav className="nav">
+          <a href="#works" className="nav-link">Works</a>
+          <a href="#clients" className="nav-link">Clients</a>
+          <a href="#about" className="nav-link">About</a>
+          <a href="#contact" className="nav-cta">Contact</a>
+        </nav>
+      </header>
+
+      <section className="hero">
+        <div className="hero-inner">
+          <div className="profile-section">
+            <div className="name-block">
+              <h1 className="name-line">BEAMUP</h1>
+              <h1 className="name-line">STUDIOS</h1>
+            </div>
+            <div className="hero-image-placeholder" aria-hidden />
+          </div>
+          <div className="bio-section">
+            <div className="email-block">
+              <a href={`mailto:${EMAIL}`} className="email">{EMAIL}</a>
+              <button
+                type="button"
+                onClick={copyEmail}
+                className="copy-btn"
+                aria-label={copied ? 'Copied' : 'Copy email'}
+                title={copied ? 'Copied' : 'Copy'}
+              >
+                <CopyIcon />
+                {copied && <span className="copied">Copied</span>}
+              </button>
+            </div>
+            <p className="bio">
+              We’re a studio specializing in minimal design and clear product experiences. We work with founders and brands to build identity and digital products that feel considered and intentional. Let’s create something together.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}
+
+function CopyIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M13.89 1.668L1.668 1.668L1.668 13.89L13.89 13.89Z" />
+      <path d="M17 6.11L18.332 6.11L18.332 18.332L6.109 18.332L6.109 17" />
+    </svg>
   )
 }
 

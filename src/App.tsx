@@ -6,7 +6,6 @@ const EMAIL = 'hello@beamupstudio.com'
 function App() {
   const [copied, setCopied] = useState(false)
   const [cursor, setCursor] = useState({ x: 0, y: 0 })
-  const [copyHover, setCopyHover] = useState(false)
 
   useEffect(() => {
     const move = (e: MouseEvent) => setCursor({ x: e.clientX, y: e.clientY })
@@ -23,12 +22,10 @@ function App() {
   return (
     <div className="page">
       <div
-        className={`custom-cursor ${copyHover ? 'custom-cursor--copy' : ''}`}
+        className="custom-cursor"
         style={{ left: cursor.x, top: cursor.y }}
         aria-hidden
-      >
-        {copyHover && <span className="custom-cursor__label">Copy</span>}
-      </div>
+      />
       <header className="header">
         <a href="/" className="logo">BEAMUP STUDIOS</a>
         <nav className="nav">
@@ -49,11 +46,7 @@ function App() {
             <div className="hero-image-placeholder" aria-hidden />
           </div>
           <div className="bio-section">
-            <div
-              className="email-block"
-              onMouseEnter={() => setCopyHover(true)}
-              onMouseLeave={() => setCopyHover(false)}
-            >
+            <div className="email-block">
               <a href={`mailto:${EMAIL}`} className="email">{EMAIL}</a>
               <button
                 type="button"
@@ -62,8 +55,12 @@ function App() {
                 aria-label={copied ? 'Copied' : 'Copy email'}
                 title={copied ? 'Copied' : 'Copy'}
               >
-                <CopyIcon />
-                {copied && <span className="copied">Copied</span>}
+                <span className={`copy-btn-icon ${copied ? 'copy-btn-icon--hidden' : ''}`}>
+                  <CopyIcon />
+                </span>
+                <span className={`copy-btn-icon copy-btn-icon--check ${copied ? '' : 'copy-btn-icon--hidden'}`}>
+                  <CheckIcon />
+                </span>
               </button>
             </div>
             <p className="bio">
@@ -81,6 +78,14 @@ function CopyIcon() {
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <path d="M13.89 1.668L1.668 1.668L1.668 13.89L13.89 13.89Z" />
       <path d="M17 6.11L18.332 6.11L18.332 18.332L6.109 18.332L6.109 17" />
+    </svg>
+  )
+}
+
+function CheckIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M4 10l4 4 8-8" />
     </svg>
   )
 }

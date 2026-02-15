@@ -8,7 +8,7 @@
   flex-direction: column;
 }
 
-/* Custom cursor: large black circle; copy hover = bigger pill with "Copy" */
+/* Custom cursor: large black circle */
 .custom-cursor {
   position: fixed;
   width: 38px;
@@ -18,31 +18,6 @@
   pointer-events: none;
   transform: translate(-50%, -50%);
   z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: width 0.2s ease, height 0.2s ease, border-radius 0.2s ease;
-}
-
-.custom-cursor--copy {
-  width: 120px;
-  height: 60px;
-  border-radius: 30px;
-}
-
-.custom-cursor__label {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: rgb(255, 255, 255);
-  text-transform: uppercase;
-  opacity: 0;
-  transition: opacity 0.15s ease;
-}
-
-.custom-cursor--copy .custom-cursor__label {
-  opacity: 1;
 }
 
 .header {
@@ -56,7 +31,7 @@
 
 .logo {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 700;
   letter-spacing: -0.06em;
   line-height: 1.1em;
@@ -67,12 +42,12 @@
 .nav {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 44px;
 }
 
 .nav-link {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 26px;
+  font-size: 30px;
   font-weight: 500;
   letter-spacing: -0.06em;
   line-height: 1.1em;
@@ -86,37 +61,37 @@
 
 .nav-cta {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1.2em;
   color: rgb(0, 0, 0);
   text-decoration: none;
   background: rgb(245, 245, 245);
-  padding: 20px 32px;
+  padding: 22px 34px;
 }
 
 .nav-cta:hover {
   background: rgb(235, 235, 235);
 }
 
-/* framer-c6378y: padding 0 80px; fills remaining viewport */
+/* Hero: wider content area, less side padding */
 .hero {
   flex: 1;
   min-height: 0;
-  padding: 0 80px;
+  padding: 0 48px;
   width: 100%;
   overflow: hidden;
 }
 
-/* framer-1umilaq: fills hero, padding 140px 0 80px, space-between */
+/* Hero inner: wider max-width so name, email, bio span more */
 .hero-inner {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
   min-height: 0;
-  max-width: 1600px;
+  max-width: 1920px;
   margin: 0 auto;
   padding: 140px 0 80px;
 }
@@ -179,10 +154,10 @@
   flex-shrink: 0;
 }
 
-/* Larger email to match YUYA */
+/* Email: match original template size */
 .email {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 34px;
+  font-size: 40px;
   font-weight: 500;
   letter-spacing: -0.06em;
   line-height: 1.3em;
@@ -204,41 +179,60 @@
   cursor: pointer;
   color: rgb(0, 0, 0);
   position: relative;
+  width: 40px;
+  height: 40px;
 }
 
 .copy-btn:hover {
   opacity: 0.7;
 }
 
-.copy-btn .copied {
+.copy-btn-icon {
   position: absolute;
-  left: 100%;
-  margin-left: 6px;
-  font-size: 12px;
-  color: rgb(51, 51, 51);
-  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-/* Larger subheading/bio to match YUYA */
+.copy-btn-icon--hidden {
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+}
+
+.copy-btn-icon--check {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.copy-btn-icon--check:not(.copy-btn-icon--hidden) {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Bio/subheading: left-aligned, match original template size */
 .bio {
   flex: 1 1 auto;
   min-height: 0;
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 42px;
+  font-size: 48px;
   font-weight: 500;
   letter-spacing: -0.06em;
   line-height: 1.1em;
-  text-align: justify;
+  text-align: left;
   color: rgb(0, 0, 0);
   margin: 0;
-  max-width: 643px;
+  max-width: 800px;
   min-width: 0;
 }
 
 /* Tablet: 810–1199 */
 @media (min-width: 810px) and (max-width: 1199px) {
   .hero {
-    padding: 0 30px;
+    padding: 0 36px;
   }
 
   .name-line {
@@ -251,21 +245,21 @@
   }
 
   .bio {
-    font-size: 32px;
-    max-width: 335px;
+    font-size: 36px;
+    max-width: 420px;
   }
 
   .nav-link {
-    font-size: 22px;
+    font-size: 24px;
   }
 
   .nav-cta {
-    font-size: 20px;
-    padding: 18px 28px;
+    font-size: 22px;
+    padding: 20px 30px;
   }
 
   .email {
-    font-size: 28px;
+    font-size: 32px;
   }
 }
 
@@ -280,16 +274,16 @@
   }
 
   .nav-link {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .nav-cta {
-    padding: 16px 24px;
-    font-size: 18px;
+    padding: 18px 26px;
+    font-size: 20px;
   }
 
   .email {
-    font-size: 24px;
+    font-size: 28px;
   }
 
   .hero {
@@ -328,7 +322,7 @@
   }
 
   .bio {
-    font-size: 26px;
+    font-size: 30px;
     max-width: none;
   }
 }

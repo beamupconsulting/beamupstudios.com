@@ -43,7 +43,7 @@ function App() {
   const goHome = navigate('/')
 
   return (
-    <div className={`page ${heroHover ? 'hero-hover' : ''}`}>
+    <div className="page hero-hover">
       <div className="custom-cursor" style={{ left: cursor.x, top: cursor.y }} aria-hidden />
       <div className="invert-spotlight" style={{ left: cursor.x, top: cursor.y }} aria-hidden />
 

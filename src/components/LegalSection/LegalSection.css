@@ -1,0 +1,49 @@
+.privacy__section {
+  margin-bottom: 32px;
+}
+
+.privacy__section-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: rgb(0, 0, 0);
+  margin: 0 0 12px;
+}
+
+.privacy__section-body {
+  margin: 0;
+}
+
+.privacy__section-body ul {
+  margin: 0 0 12px;
+  padding-left: 1.25em;
+}
+
+.privacy__section-body li {
+  margin-bottom: 8px;
+}
+
+.privacy__section-body p {
+  margin: 0 0 12px;
+}
+
+.privacy__contact {
+  margin: 12px 0 0;
+  padding: 16px 0 0;
+}
+
+.privacy__contact a {
+  color: rgb(0, 0, 0);
+  text-decoration: underline;
+}
+
+.privacy__contact a:hover {
+  color: rgb(100, 100, 100);
+}
+
+@media (max-width: 809px) {
+  .privacy__section-title {
+    font-size: 16px;
+  }
+}

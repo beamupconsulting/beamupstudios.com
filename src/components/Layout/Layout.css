@@ -1,0 +1,12 @@
+.page__main {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.page__main--scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+}

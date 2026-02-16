@@ -1,0 +1,60 @@
+/**
+ * Page-wide styles: layout shell, cursor, spotlight.
+ * Applied at the root/layout layer.
+ */
+
+.page {
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: rgb(255, 255, 255);
+  cursor: none;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.custom-cursor {
+  position: fixed;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgb(0, 0, 0);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.page.hero-hover .custom-cursor {
+  opacity: 0;
+}
+
+.invert-spotlight {
+  position: fixed;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgb(255, 255, 255);
+  mix-blend-mode: difference;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.page.hero-hover .invert-spotlight {
+  opacity: 1;
+}
+
+@media (pointer: coarse) {
+  .page {
+    cursor: auto;
+  }
+
+  .custom-cursor {
+    display: none;
+  }
+}

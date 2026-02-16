@@ -32,3 +32,9 @@ export const BIO_TEXT =
   "We're a technical engine building high-performance software and digital tools. We partner with startups and enterprises to engineer the scalable systems and internal products that bridge the gap from idea to launch. Let’s build the future together."
 
 export const HERO_NAME_LINES = ['BEAMUP', 'STUDIOS'] as const
+
+/** Feature flags (toggle in one place). URL override: ?bujo=1 or ?bujo=0 */
+const BULLET_JOURNAL_DEFAULT = true
+const bujoParam = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('bujo') : null
+export const BULLET_JOURNAL_BACKGROUND =
+  bujoParam === '0' || bujoParam === 'false' ? false : bujoParam === '1' || bujoParam === 'true' ? true : BULLET_JOURNAL_DEFAULT

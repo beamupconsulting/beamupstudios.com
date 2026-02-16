@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { BULLET_JOURNAL_BACKGROUND } from '../../constants'
 import { Cursor } from '../Cursor/Cursor'
 import { Header } from '../Header/Header'
 import { Footer } from '../Footer/Footer'
@@ -23,8 +24,16 @@ export function Layout({ route, children, onNavigate }: LayoutProps) {
 
   const isScrollableMain = route === 'privacy' || route === 'terms'
 
+  const pageClass = [
+    'page',
+    'hero-hover',
+    BULLET_JOURNAL_BACKGROUND && 'page--bujo',
+  ]
+    .filter(Boolean)
+    .join(' ')
+
   return (
-    <div className="page hero-hover">
+    <div className={pageClass}>
       <Cursor x={cursor.x} y={cursor.y} />
       <Header onLogoClick={onNavigate('/')} />
       <main className={`page__main ${isScrollableMain ? 'page__main--scroll' : ''}`}>

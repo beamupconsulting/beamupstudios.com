@@ -25,7 +25,7 @@ export function TermsPage({ onNavigate }: TermsPageProps) {
         <p className="privacy__updated">{TERMS_EFFECTIVE_DATE}</p>
         <div className="privacy__content">
           <LegalSection number={1} title="THE AGREEMENT">
-            These Terms of Use constitute a legally binding agreement between you ("Client" or "User") and {COMPANY_LEGAL_NAME}, also known as BeamUp Studios ("Company," "we," "us," or "our"). These terms govern your access to beamupstudios.com and any software, applications, or consulting services provided by the Company. By engaging the Company, you agree to be bound by these Terms.
+            These Terms of Service constitute a legally binding agreement between you ("Client" or "User") and {COMPANY_LEGAL_NAME}, also known as BeamUp Studios ("Company," "we," "us," or "our"). These terms govern your access to beamupstudios.com and any software, applications, or consulting services provided by the Company. By engaging the Company, you agree to be bound by these Terms.
           </LegalSection>
           <LegalSection number={2} title="FEES AND PAYMENT">
             All financial arrangements, including but not limited to project fees, hourly rates, payment schedules, and late interest, are governed strictly by the individual Statement of Work (SOW), signed contract, or engagement letter executed between the Company and the Client. In the event of any conflict between these Terms and a signed contract, the terms of the signed contract shall prevail regarding fees and payment only.

@@ -27,7 +27,7 @@ export function HomePage() {
         </div>
         <div className="bio-section">
           <div className="email-block">
-            <a href={`mailto:${EMAIL}`} className="email">
+            <a href={`mailto:${EMAIL}`} target="_blank" className="email">
               {EMAIL}
             </a>
             <button

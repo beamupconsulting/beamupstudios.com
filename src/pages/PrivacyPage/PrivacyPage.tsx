@@ -82,7 +82,7 @@ export function PrivacyPage({ onNavigate }: PrivacyPageProps) {
             For any legal inquiries regarding these terms, contact:
             <p className="privacy__contact">
               {COMPANY_LEGAL_NAME}<br />
-              <a href={`mailto:${LEGAL_EMAIL}`}>{LEGAL_EMAIL}</a>
+              <a href={`mailto:${LEGAL_EMAIL}`} target="_blank">{LEGAL_EMAIL}</a>
             </p>
           </LegalSection>
         </div>

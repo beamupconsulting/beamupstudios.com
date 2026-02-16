@@ -29,6 +29,6 @@ export const TERMS_EFFECTIVE_DATE = 'Effective Date: January 1, 2026'
 
 /** Home page */
 export const BIO_TEXT =
-  "We're a technical studio building high-performance software and digital tools. We partner with startups and enterprises to engineer scalable systems and internal products that bridge the gap between idea and launch. Let's build the future together."
+  "We're a technical engine building high-performance software and digital tools. We partner with startups and enterprises to engineer the scalable systems and internal products that bridge the gap from idea to launch. Let’s build the future together."
 
 export const HERO_NAME_LINES = ['BEAMUP', 'STUDIOS'] as const

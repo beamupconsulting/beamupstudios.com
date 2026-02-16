@@ -22,6 +22,27 @@
   min-height: 0;
 }
 
+/* Load animation: slide up with stagger */
+.hero-inner .profile-section {
+  animation: slideUp 0.65s ease-out both;
+}
+
+.hero-inner .name-line:nth-child(1) {
+  animation: slideUp 0.6s ease-out both;
+}
+
+.hero-inner .name-line:nth-child(2) {
+  animation: slideUp 0.6s ease-out 0.06s both;
+}
+
+.hero-inner .hero-image-placeholder {
+  animation: slideUp 0.6s ease-out 0.06s both;
+}
+
+.hero-inner .bio-section {
+  animation: slideUp 0.65s ease-out 0.12s both;
+}
+
 .profile-section {
   display: flex;
   flex-direction: row;

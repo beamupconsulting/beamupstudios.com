@@ -6,6 +6,23 @@
   width: 100%;
 }
 
+/* Load animation: slide up with stagger */
+.privacy__back {
+  animation: slideUp 0.55s ease-out both;
+}
+
+.privacy__title {
+  animation: slideUp 0.55s ease-out 0.06s both;
+}
+
+.privacy__updated {
+  animation: slideUp 0.55s ease-out 0.1s both;
+}
+
+.privacy__content {
+  animation: slideUp 0.55s ease-out 0.14s both;
+}
+
 .privacy__back {
   display: inline-flex;
   align-items: center;

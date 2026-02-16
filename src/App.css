@@ -90,14 +90,23 @@
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1.2em;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   text-decoration: none;
-  background: rgb(245, 245, 245);
-  padding: 22px 34px;
+  background: rgb(0, 0, 0);
+  padding: 18px 28px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .nav-cta:hover {
-  background: rgb(235, 235, 235);
+  background: rgb(40, 40, 40);
+}
+
+.nav-cta .nav-cta-icon {
+  flex-shrink: 0;
 }
 
 /* Hero: wider content area, less side padding */
@@ -116,7 +125,7 @@
   justify-content: space-between;
   height: 100%;
   min-height: 0;
-  max-width: 1920px;
+  max-width: 2000px;
   margin: 0 auto;
   padding: 140px 0 80px;
 }
@@ -190,6 +199,10 @@
   text-decoration: none;
 }
 
+.email:hover {
+  text-decoration: underline;
+}
+
 .copy-btn {
   display: flex;
   align-items: center;
@@ -200,8 +213,13 @@
   cursor: pointer;
   color: rgb(0, 0, 0);
   position: relative;
-  width: 40px;
-  height: 40px;
+  width: 52px;
+  height: 52px;
+}
+
+.copy-btn .copy-icon-svg {
+  width: 28px;
+  height: 28px;
 }
 
 .copy-btn:hover {
@@ -246,7 +264,7 @@
   text-align: left;
   color: rgb(0, 0, 0);
   margin: 0;
-  max-width: 800px;
+  max-width: 820px;
   min-width: 0;
 }
 
@@ -267,7 +285,7 @@
 
   .bio {
     font-size: 36px;
-    max-width: 420px;
+    max-width: 440px;
   }
 
   .nav-link {
@@ -276,7 +294,7 @@
 
   .nav-cta {
     font-size: 22px;
-    padding: 20px 30px;
+    padding: 16px 24px;
   }
 
   .email {
@@ -299,8 +317,8 @@
   }
 
   .nav-cta {
-    padding: 18px 26px;
-    font-size: 20px;
+    padding: 14px 22px;
+    font-size: 18px;
   }
 
   .email {

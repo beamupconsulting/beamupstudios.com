@@ -38,7 +38,10 @@ function App() {
           <a href="#works" className="nav-link">Works</a>
           <a href="#clients" className="nav-link">Clients</a>
           <a href="#about" className="nav-link">About</a>
-          <a href="#contact" className="nav-cta">Contact</a>
+          <a href="#contact" className="nav-cta">
+            Get Started
+            <ArrowUpRight />
+          </a>
         </nav>
       </header>
 
@@ -74,7 +77,7 @@ function App() {
               </button>
             </div>
             <p className="bio">
-              We’re a studio specializing in minimal design and clear product experiences. We work with founders and brands to build identity and digital products that feel considered and intentional. Let’s create something together.
+              We are a software studio dedicated to building the next generation of web and mobile apps. We help founders turn complex problems into streamlined code, delivering custom software that scales from the first line to the millionth user. Let’s start the build.
             </p>
           </div>
         </div>
@@ -85,7 +88,7 @@ function App() {
 
 function CopyIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg width="28" height="28" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="copy-icon-svg">
       <path d="M13.89 1.668L1.668 1.668L1.668 13.89L13.89 13.89Z" />
       <path d="M17 6.11L18.332 6.11L18.332 18.332L6.109 18.332L6.109 17" />
     </svg>
@@ -94,8 +97,17 @@ function CopyIcon() {
 
 function CheckIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg width="28" height="28" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="copy-icon-svg">
       <path d="M4 10l4 4 8-8" />
+    </svg>
+  )
+}
+
+function ArrowUpRight() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="nav-cta-icon">
+      <path d="M7 17L17 7" />
+      <path d="M7 7h10v10" />
     </svg>
   )
 }

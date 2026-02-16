@@ -77,7 +77,7 @@ function App() {
               </button>
             </div>
             <p className="bio">
-              We are a software studio dedicated to building the next generation of web and mobile apps. We help founders turn complex problems into streamlined code, delivering custom software that scales from the first line to the millionth user. Let’s start the build.
+              We’re a technical studio building high-performance software and digital tools. We partner with startups and enterprises to engineer scalable systems and internal products that bridge the gap between idea and launch. Let’s build the future together.
             </p>
           </div>
         </div>
@@ -88,7 +88,7 @@ function App() {
 
 function CopyIcon() {
   return (
-    <svg width="28" height="28" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="copy-icon-svg">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="copy-icon-svg">
       <path d="M13.89 1.668L1.668 1.668L1.668 13.89L13.89 13.89Z" />
       <path d="M17 6.11L18.332 6.11L18.332 18.332L6.109 18.332L6.109 17" />
     </svg>
@@ -97,7 +97,7 @@ function CopyIcon() {
 
 function CheckIcon() {
   return (
-    <svg width="28" height="28" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="copy-icon-svg">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="copy-icon-svg">
       <path d="M4 10l4 4 8-8" />
     </svg>
   )

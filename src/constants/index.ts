@@ -3,7 +3,7 @@ export const COMPANY_DISPLAY_NAME = 'BEAMUP STUDIOS'
 export const COMPANY_LEGAL_NAME = 'BeamUp Consulting Inc.'
 
 /** Contact */
-export const EMAIL = 'beamupconsultinginc@gmail.com'
+export const EMAIL = 'hello@beamupstudios.com'
 export const LEGAL_EMAIL = 'beamupconsultinginc@gmail.com'
 
 /** Navigation */

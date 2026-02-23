@@ -23,7 +23,7 @@ export const FOOTER_LINK_TERMS = 'Terms of Service'
 /** Legal page UI */
 export const BACK_LABEL = 'Back'
 export const PRIVACY_PAGE_TITLE = 'PRIVACY POLICY'
-export const PRIVACY_LAST_UPDATED = 'Last Updated: October 20, 2026'
+export const PRIVACY_LAST_UPDATED = 'Last Updated: January 1, 2026'
 export const TERMS_PAGE_TITLE = 'TERMS OF SERVICE'
 export const TERMS_EFFECTIVE_DATE = 'Effective Date: January 1, 2026'
 

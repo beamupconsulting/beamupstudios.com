@@ -1,78 +1,61 @@
-/**
- * Page-wide styles: layout shell, cursor, spotlight.
- * Applied at the root/layout layer.
- */
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.page {
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden;
-  background: rgb(255, 255, 255);
-  cursor: none;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-}
-
-/* Bullet journal dot grid (when .page--bujo is set via BULLET_JOURNAL_BACKGROUND) */
-.page--bujo {
-  background-color: rgb(255, 255, 255);
-  background-image: radial-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-.custom-cursor {
+.reticle {
   position: fixed;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgb(0, 0, 0);
+  left: 0;
+  top: 0;
+  z-index: 40;
+  width: 0;
+  height: 0;
   pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-  opacity: 1;
-  transition: opacity 0.2s ease;
 }
 
-.page.hero-hover .custom-cursor {
+.reticle.is-off {
   opacity: 0;
 }
 
-.invert-spotlight {
-  position: fixed;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgb(255, 255, 255);
-  mix-blend-mode: difference;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 9998;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+.reticle__dot,
+.reticle__ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  will-change: transform;
 }
 
-.page.hero-hover .invert-spotlight {
-  opacity: 1;
+.reticle__dot {
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  border-radius: 50%;
+  background: #ff5c1c;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.55);
+}
+
+.reticle__glyph {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' fill='none'%3E%3Ccircle cx='18' cy='18' r='7.5' stroke='%23FFF4E6' stroke-width='1'/%3E%3Cpath d='M18 2v4.5M18 29.5V34M2 18h4.5M29.5 18H34' stroke='%23FFF4E6' stroke-width='1'/%3E%3C/svg%3E");
+  transition: transform 0.18s ease;
+}
+
+.reticle.is-hot .reticle__glyph {
+  transform: scale(0.7);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' fill='none'%3E%3Ccircle cx='18' cy='18' r='7.5' stroke='%23FFB067' stroke-width='1'/%3E%3Cpath d='M18 2v4.5M18 29.5V34M2 18h4.5M29.5 18H34' stroke='%23FFB067' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+.reticle.is-down .reticle__glyph {
+  transform: scale(0.84);
 }
 
 @media (pointer: coarse) {
-  .page {
-    cursor: auto;
-  }
-
-  .custom-cursor {
+  .reticle {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reticle__glyph {
+    transition: none;
   }
 }

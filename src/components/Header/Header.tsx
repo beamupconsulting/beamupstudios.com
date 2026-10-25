@@ -1,5 +1,4 @@
-import { COMPANY_DISPLAY_NAME, NAV_CTA_LABEL, NAV_CTA_URL } from '../../constants'
-import { ArrowUpRight } from '../icons'
+import { LEGAL_EMAIL } from '../../constants'
 import './Header.css'
 
 type HeaderProps = {
@@ -8,16 +7,14 @@ type HeaderProps = {
 
 export function Header({ onLogoClick }: HeaderProps) {
   return (
-    <header className="header">
-      <a href="/" className="logo" onClick={onLogoClick}>
-        {COMPANY_DISPLAY_NAME}
+    <header className="topbar">
+      <a href="/" className="topbar__mark" onClick={onLogoClick}>
+        <span>BEAMUP</span>
+        <span>Studios</span>
       </a>
-      <nav className="nav">
-        <a href={NAV_CTA_URL} target="_blank" rel="noopener noreferrer" className="nav-cta">
-          {NAV_CTA_LABEL}
-          <ArrowUpRight />
-        </a>
-      </nav>
+      <a className="topbar__mail" href={`mailto:${LEGAL_EMAIL}`}>
+        {LEGAL_EMAIL}
+      </a>
     </header>
   )
 }

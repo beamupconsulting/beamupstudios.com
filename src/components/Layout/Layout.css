@@ -1,12 +1,18 @@
-.page__main {
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+.page--home,
+.page--legal {
+  background: var(--bg);
+  color: var(--ink);
 }
 
-.page__main--scroll {
-  overflow-y: auto;
-  overflow-x: hidden;
+.page--legal {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.page--legal .page__main {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
 }

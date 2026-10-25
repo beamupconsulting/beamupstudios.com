@@ -262,7 +262,7 @@
 .dek {
   max-width: 46ch;
   margin: 14px 0 0;
-  color: rgb(235 230 220 / 0.82);
+  color: rgb(235 230 220 / 0.92);
   font-size: 15.5px;
   line-height: 1.5;
 }
@@ -323,7 +323,7 @@
 .spec__row p {
   margin: 0;
   max-width: 52ch;
-  color: rgb(235 230 220 / 0.82);
+  color: rgb(235 230 220 / 0.92);
   font-size: 14.5px;
   line-height: 1.5;
 }

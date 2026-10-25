@@ -71,7 +71,6 @@ const beamFragment = /* glsl */ `
 
     float crossing = smoothstep(0.64, 0.36, uv.x) * (1.0 - settle);
     col *= mix(1.0, 0.42, crossing);
-    col *= mix(1.0, 0.58, settle);
     col *= mix(1.0, 1.0 - settle, uNarrow);
 
     float corners = uNarrow * settle;
@@ -90,6 +89,7 @@ const beamFragment = /* glsl */ `
     col *= mix(0.7, 1.0, uIntro);
     float peak = max(col.r, max(col.g, col.b));
     if (peak > 1.15) col *= 1.15 / peak;
+    col *= mix(1.0, 0.38, settle * (1.0 - uNarrow));
 
     float dither = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
     col += (dither - 0.5) * 0.008;
@@ -131,7 +131,7 @@ const moteVertex = /* glsl */ `
     gl_PointSize = max(1.0, vSize * uPixel);
     vFade = smoothstep(0.0, 0.08, cycle) * smoothstep(1.0, 0.88, cycle);
     vFade *= 0.25 + 0.75 * flare;
-    vFade *= mix(1.0, 0.58, settle);
+    vFade *= mix(1.0, 0.38, settle * (1.0 - uNarrow));
     vFade *= mix(1.0, 1.0 - settle, uNarrow);
     vSeed = aSeed;
   }

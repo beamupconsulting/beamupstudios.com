@@ -20,6 +20,7 @@ const beamFragment = /* glsl */ `
   uniform float uPush;
   uniform float uAnchor;
   uniform float uPark;
+  uniform float uNarrow;
 
   float sat(float x) {
     return clamp(x, 0.0, 1.0);
@@ -71,6 +72,20 @@ const beamFragment = /* glsl */ `
     float crossing = smoothstep(0.64, 0.36, uv.x) * (1.0 - settle);
     col *= mix(1.0, 0.42, crossing);
     col *= mix(1.0, 0.58, settle);
+    col *= mix(1.0, 1.0 - settle, uNarrow);
+
+    float corners = uNarrow * settle;
+    vec2 tl = uv - vec2(0.0, 1.0);
+    vec2 tr = uv - vec2(1.0, 1.0);
+    vec2 bl = uv;
+    vec2 br = uv - vec2(1.0, 0.0);
+    float reach = 0.007;
+    col += vec3(0.05, 0.12, 0.4) * corners * (
+      exp(-dot(tl, tl) / reach) * 0.4 +
+      exp(-dot(tr, tr) / reach) * 0.75 +
+      exp(-dot(bl, bl) / reach) * 0.5 +
+      exp(-dot(br, br) / (reach * 1.8))
+    );
 
     col *= mix(0.7, 1.0, uIntro);
     float peak = max(col.r, max(col.g, col.b));
@@ -94,6 +109,7 @@ const moteVertex = /* glsl */ `
   uniform float uPixel;
   uniform float uAnchor;
   uniform float uPark;
+  uniform float uNarrow;
   uniform float uProgress;
   varying float vFade;
   varying float vSeed;
@@ -116,6 +132,7 @@ const moteVertex = /* glsl */ `
     vFade = smoothstep(0.0, 0.08, cycle) * smoothstep(1.0, 0.88, cycle);
     vFade *= 0.25 + 0.75 * flare;
     vFade *= mix(1.0, 0.58, settle);
+    vFade *= mix(1.0, 1.0 - settle, uNarrow);
     vSeed = aSeed;
   }
 `
@@ -188,6 +205,7 @@ export function BeamScene({ progress, push }: BeamSceneProps) {
       uPush: { value: 0 },
       uAnchor: { value: 0.58 },
       uPark: { value: 0.8 },
+      uNarrow: { value: 0 },
     }
     const beamMat = new THREE.ShaderMaterial({
       uniforms: beamUniforms,
@@ -232,6 +250,7 @@ export function BeamScene({ progress, push }: BeamSceneProps) {
       uPixel: { value: 1 },
       uAnchor: { value: 0.58 },
       uPark: { value: 0.8 },
+      uNarrow: { value: 0 },
       uProgress: { value: 0 },
     }
     const moteMat = new THREE.ShaderMaterial({
@@ -261,13 +280,17 @@ export function BeamScene({ progress, push }: BeamSceneProps) {
       const pixelRatio = Math.min(window.devicePixelRatio || 1, portrait ? 1.5 : 1.75)
       renderer.setPixelRatio(pixelRatio)
       renderer.setSize(width, height, false)
+      const narrow = width < 800
       const anchor = portrait ? 0.5 : 0.58
-      const park = portrait ? anchor : 0.8
+      const park = narrow ? anchor : 0.8
+      const narrowValue = narrow ? 1 : 0
       beamUniforms.uAnchor.value = anchor
       beamUniforms.uPark.value = park
+      beamUniforms.uNarrow.value = narrowValue
       beamUniforms.uResolution.value.set(width * pixelRatio, height * pixelRatio)
       moteUniforms.uAnchor.value = anchor
       moteUniforms.uPark.value = park
+      moteUniforms.uNarrow.value = narrowValue
       moteUniforms.uPixel.value = pixelRatio
       camera.updateProjectionMatrix()
     }

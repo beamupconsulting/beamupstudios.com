@@ -4,6 +4,21 @@
   color: var(--ink);
 }
 
+html:has(.page--home) {
+  overflow: hidden;
+}
+
+.page--home {
+  height: 100dvh;
+  overflow: hidden;
+  background: #05060e;
+}
+
+.page--home .page__main {
+  height: 100%;
+  overflow: hidden;
+}
+
 .page--legal {
   height: 100dvh;
   display: flex;

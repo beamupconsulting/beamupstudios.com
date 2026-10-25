@@ -35,12 +35,12 @@
   pointer-events: none;
   background: linear-gradient(
     90deg,
-    rgb(4 6 14 / 0.84) 0%,
-    rgb(4 6 14 / calc(0.34 + var(--p) * 0.4)) 34%,
-    rgb(4 6 14 / calc(var(--p) * 0.5)) 62%,
-    transparent 86%
+    rgb(4 6 14 / 0.8) 0%,
+    rgb(4 6 14 / calc(0.2 + var(--p) * 0.12)) 32%,
+    rgb(4 6 14 / calc(var(--p) * 0.1)) 58%,
+    transparent 76%
   );
-  opacity: calc(0.62 + var(--p) * 0.38);
+  opacity: calc(0.5 + var(--p) * 0.5);
 }
 
 .crops {

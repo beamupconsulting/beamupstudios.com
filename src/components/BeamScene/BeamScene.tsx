@@ -19,6 +19,7 @@ const beamFragment = /* glsl */ `
   uniform float uIntro;
   uniform float uPush;
   uniform float uAnchor;
+  uniform float uPark;
 
   float sat(float x) {
     return clamp(x, 0.0, 1.0);
@@ -29,13 +30,14 @@ const beamFragment = /* glsl */ `
     float aspect = uResolution.x / max(uResolution.y, 1.0);
     float t = pow(sat(uProgress), 0.9);
     float down = 1.0 - uv.y;
-    float flare = smoothstep(0.0, 1.0, down);
-    flare = flare * flare;
-    float x = uv.x - uAnchor;
+    float settle = smoothstep(0.3, 0.92, uProgress);
+    float anchor = mix(uAnchor, uPark, settle);
+    float flareLive = pow(smoothstep(0.0, 1.0, down), 2.0);
+    float x = uv.x - anchor;
 
-    float coreW = mix(0.006, 0.016, t) + flare * mix(0.014, 0.055, t);
-    float glowW = mix(0.04, 0.09, t) + flare * mix(0.09, 0.34, t);
-    float hazeW = mix(0.1, 0.2, t) + flare * mix(0.18, 0.75, t);
+    float coreW = mix(mix(0.006, 0.016, t) + flareLive * mix(0.014, 0.055, t), 0.015, settle);
+    float glowW = mix(mix(0.04, 0.09, t) + flareLive * mix(0.09, 0.34, t), 0.1, settle);
+    float hazeW = mix(mix(0.1, 0.2, t) + flareLive * mix(0.18, 0.75, t), 0.2, settle);
     glowW += uPush * 0.012;
     hazeW += uPush * 0.03;
 
@@ -45,29 +47,30 @@ const beamFragment = /* glsl */ `
     float shimmer = 0.92 + 0.08 * sin(uv.y * 28.0 - uTime * 2.6);
 
     vec3 col = vec3(0.008, 0.01, 0.022);
-    col += vec3(0.14, 0.32, 0.95) * haze * (0.45 + 0.55 * down);
+    float body = mix(0.45 + 0.55 * down, 1.0, settle);
+    col += vec3(0.14, 0.32, 0.95) * haze * body;
     col += vec3(0.32, 0.68, 1.0) * glow;
     col += vec3(0.92, 0.97, 1.0) * core * shimmer;
 
-    float by = (uv.y - 0.03) * aspect * 0.85;
-    float bx = x * 1.15;
-    float radius = mix(0.16, 0.72, t);
+    float by = (uv.y - mix(0.04, 0.5, settle)) * aspect * mix(0.85, 0.45, settle);
+    float bx = x * mix(1.15, 1.7, settle);
+    float radius = mix(mix(0.16, 0.72, t), 0.22, settle);
     float disk = bx * bx + by * by;
+    float bloomAmt = mix(1.0, 0.28, settle);
     float bloom = exp(-disk / max(radius * radius, 1e-4));
-    col += vec3(0.12, 0.38, 1.0) * bloom * 0.45;
-    col += vec3(0.8, 0.92, 1.0) * exp(-disk / max(radius * radius * 0.06, 1e-4)) * 0.55;
+    col += vec3(0.12, 0.38, 1.0) * bloom * 0.45 * bloomAmt;
+    col += vec3(0.8, 0.92, 1.0) * exp(-disk / max(radius * radius * 0.06, 1e-4)) * 0.55 * bloomAmt;
 
     float streak = exp(-pow((uv.y - 0.045) / mix(0.018, 0.07, t), 2.0));
     float span = exp(-(x * x) / max(mix(0.1, 0.5, t) * mix(0.1, 0.5, t), 1e-4));
-    col += vec3(0.45, 0.75, 1.0) * streak * span * 0.35;
+    col += vec3(0.45, 0.75, 1.0) * streak * span * mix(0.35, 0.0, settle);
 
     float fill = smoothstep(0.4, 1.0, uProgress);
-    col += vec3(0.03, 0.06, 0.16) * fill * haze;
+    col += vec3(0.03, 0.06, 0.16) * fill * haze * (1.0 - settle);
 
-    float pocket = smoothstep(0.9, 0.38, uv.x) * smoothstep(0.42, 0.72, uProgress);
-    float hot = clamp(core + glow + haze * 0.45, 0.0, 1.0);
-    col *= mix(1.0, 0.02, pocket * hot);
-    col += vec3(0.008, 0.018, 0.045) * pocket * glow;
+    float crossing = smoothstep(0.64, 0.36, uv.x) * (1.0 - settle);
+    col *= mix(1.0, 0.42, crossing);
+    col *= mix(1.0, 0.58, settle);
 
     col *= mix(0.7, 1.0, uIntro);
     float peak = max(col.r, max(col.g, col.b));
@@ -90,6 +93,8 @@ const moteVertex = /* glsl */ `
   uniform float uSpread;
   uniform float uPixel;
   uniform float uAnchor;
+  uniform float uPark;
+  uniform float uProgress;
   varying float vFade;
   varying float vSeed;
   varying float vSize;
@@ -98,15 +103,19 @@ const moteVertex = /* glsl */ `
     float cycle = fract(aAlong + uTime * aSpeed);
     float y = mix(-1.04, 1.04, cycle);
     float down = 1.0 - cycle;
-    float flare = pow(smoothstep(0.0, 1.0, down), 1.25);
-    float halfW = uSpread * (0.07 + 0.93 * flare);
-    float x = (uAnchor * 2.0 - 1.0) + aAcross * halfW;
+    float settle = smoothstep(0.3, 0.92, uProgress);
+    float flareLive = pow(smoothstep(0.0, 1.0, down), 1.25);
+    float flare = mix(flareLive, 0.82, settle);
+    float halfW = uSpread * (0.1 + 0.9 * flare);
+    float anchor = mix(uAnchor, uPark, settle);
+    float x = (anchor * 2.0 - 1.0) + aAcross * halfW;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(x, y, 0.0, 1.0);
     float tw = 0.62 + 0.38 * sin(uTime * (1.4 + aSeed * 2.0) + aSeed * 40.0);
     vSize = aSize * tw;
     gl_PointSize = max(1.0, vSize * uPixel);
     vFade = smoothstep(0.0, 0.08, cycle) * smoothstep(1.0, 0.88, cycle);
     vFade *= 0.25 + 0.75 * flare;
+    vFade *= mix(1.0, 0.58, settle);
     vSeed = aSeed;
   }
 `
@@ -178,6 +187,7 @@ export function BeamScene({ progress, push }: BeamSceneProps) {
       uIntro: { value: reduced ? 1 : 0 },
       uPush: { value: 0 },
       uAnchor: { value: 0.58 },
+      uPark: { value: 0.8 },
     }
     const beamMat = new THREE.ShaderMaterial({
       uniforms: beamUniforms,
@@ -221,6 +231,8 @@ export function BeamScene({ progress, push }: BeamSceneProps) {
       uSpread: { value: 0.2 },
       uPixel: { value: 1 },
       uAnchor: { value: 0.58 },
+      uPark: { value: 0.8 },
+      uProgress: { value: 0 },
     }
     const moteMat = new THREE.ShaderMaterial({
       uniforms: moteUniforms,
@@ -250,9 +262,12 @@ export function BeamScene({ progress, push }: BeamSceneProps) {
       renderer.setPixelRatio(pixelRatio)
       renderer.setSize(width, height, false)
       const anchor = portrait ? 0.5 : 0.58
+      const park = portrait ? anchor : 0.8
       beamUniforms.uAnchor.value = anchor
+      beamUniforms.uPark.value = park
       beamUniforms.uResolution.value.set(width * pixelRatio, height * pixelRatio)
       moteUniforms.uAnchor.value = anchor
+      moteUniforms.uPark.value = park
       moteUniforms.uPixel.value = pixelRatio
       camera.updateProjectionMatrix()
     }
@@ -268,7 +283,11 @@ export function BeamScene({ progress, push }: BeamSceneProps) {
       beamUniforms.uIntro.value = easedIntro
       beamUniforms.uPush.value = Math.min(1, Math.max(0, push.current ?? 0))
       moteUniforms.uTime.value = elapsed
-      moteUniforms.uSpread.value = 0.48 + visual * 1.05
+      moteUniforms.uProgress.value = p
+      const settleIn = Math.min(1, Math.max(0, (p - 0.3) / 0.62))
+      const settle = settleIn * settleIn * (3 - 2 * settleIn)
+      const openSpread = 0.48 + visual * 1.05
+      moteUniforms.uSpread.value = openSpread + (0.26 - openSpread) * settle
       renderer.render(scene, camera)
     }
 

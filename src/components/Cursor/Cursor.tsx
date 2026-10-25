@@ -64,9 +64,11 @@ export function Cursor() {
 
   return (
     <div ref={rootRef} className="reticle is-off" aria-hidden>
-      <div ref={dotRef} className="reticle__dot" />
+      <div ref={dotRef} className="reticle__dot">
+        <span className="reticle__hair" />
+      </div>
       <div ref={ringRef} className="reticle__ring">
-        <div className="reticle__glyph" />
+        <span className="reticle__hair reticle__hair--ghost" />
       </div>
     </div>
   )

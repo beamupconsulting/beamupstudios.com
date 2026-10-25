@@ -6,6 +6,7 @@
   width: 0;
   height: 0;
   pointer-events: none;
+  mix-blend-mode: screen;
 }
 
 .reticle.is-off {
@@ -22,30 +23,85 @@
   will-change: transform;
 }
 
-.reticle__dot {
-  width: 4px;
-  height: 4px;
-  margin: -2px 0 0 -2px;
-  border-radius: 50%;
-  background: #ff5c1c;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.55);
+.reticle__hair,
+.reticle__hair::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
 }
 
-.reticle__glyph {
-  width: 36px;
-  height: 36px;
-  margin: -18px 0 0 -18px;
-  background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' fill='none'%3E%3Ccircle cx='18' cy='18' r='7.5' stroke='%23FFF4E6' stroke-width='1'/%3E%3Cpath d='M18 2v4.5M18 29.5V34M2 18h4.5M29.5 18H34' stroke='%23FFF4E6' stroke-width='1'/%3E%3C/svg%3E");
-  transition: transform 0.18s ease;
+.reticle__hair {
+  width: 1px;
+  height: 14px;
+  margin: -7px 0 0 -0.5px;
+  background: linear-gradient(to bottom, transparent, #f4fbff 42%, #f4fbff 58%, transparent);
+  box-shadow:
+    0 0 6px 1px rgba(150, 210, 255, 0.9),
+    0 0 16px 4px rgba(50, 120, 255, 0.45);
+  transition:
+    height 0.18s ease,
+    margin 0.18s ease,
+    box-shadow 0.18s ease,
+    opacity 0.18s ease;
 }
 
-.reticle.is-hot .reticle__glyph {
-  transform: scale(0.7);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' fill='none'%3E%3Ccircle cx='18' cy='18' r='7.5' stroke='%23FFB067' stroke-width='1'/%3E%3Cpath d='M18 2v4.5M18 29.5V34M2 18h4.5M29.5 18H34' stroke='%23FFB067' stroke-width='1'/%3E%3C/svg%3E");
+.reticle__hair::before {
+  content: '';
+  width: 14px;
+  height: 1px;
+  margin: 6.5px 0 0 -6.5px;
+  background: linear-gradient(to right, transparent, #f4fbff 40%, #f4fbff 60%, transparent);
+  box-shadow: 0 0 6px rgba(140, 200, 255, 0.8);
+  transition:
+    width 0.18s ease,
+    margin 0.18s ease;
 }
 
-.reticle.is-down .reticle__glyph {
-  transform: scale(0.84);
+.reticle__hair--ghost {
+  height: 22px;
+  margin-top: -11px;
+  opacity: 0.38;
+  box-shadow: 0 0 12px 3px rgba(70, 150, 255, 0.35);
+}
+
+.reticle__hair--ghost::before {
+  width: 22px;
+  margin: 10.5px 0 0 -10.5px;
+}
+
+.reticle.is-hot .reticle__hair {
+  height: 8px;
+  margin-top: -4px;
+  box-shadow:
+    0 0 4px 1px rgba(244, 251, 255, 0.95),
+    0 0 8px 2px rgba(90, 170, 255, 0.75);
+}
+
+.reticle.is-hot .reticle__hair::before {
+  width: 8px;
+  margin: 3.5px 0 0 -3.5px;
+}
+
+.reticle.is-hot .reticle__hair--ghost {
+  height: 12px;
+  margin-top: -6px;
+  opacity: 0.7;
+}
+
+.reticle.is-hot .reticle__hair--ghost::before {
+  width: 12px;
+  margin: 5.5px 0 0 -5.5px;
+}
+
+.reticle.is-down .reticle__hair {
+  height: 6px;
+  margin-top: -3px;
+}
+
+.reticle.is-down .reticle__hair::before {
+  width: 6px;
+  margin: 2.5px 0 0 -2.5px;
 }
 
 @media (pointer: coarse) {
@@ -55,7 +111,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reticle__glyph {
+  .reticle__hair,
+  .reticle__hair::before {
     transition: none;
   }
 }

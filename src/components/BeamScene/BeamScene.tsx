@@ -64,6 +64,11 @@ const beamFragment = /* glsl */ `
     float fill = smoothstep(0.4, 1.0, uProgress);
     col += vec3(0.03, 0.06, 0.16) * fill * haze;
 
+    float pocket = smoothstep(0.9, 0.38, uv.x) * smoothstep(0.42, 0.72, uProgress);
+    float hot = clamp(core + glow + haze * 0.45, 0.0, 1.0);
+    col *= mix(1.0, 0.02, pocket * hot);
+    col += vec3(0.008, 0.018, 0.045) * pocket * glow;
+
     col *= mix(0.7, 1.0, uIntro);
     float peak = max(col.r, max(col.g, col.b));
     if (peak > 1.15) col *= 1.15 / peak;

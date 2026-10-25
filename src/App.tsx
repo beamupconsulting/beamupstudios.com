@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Layout } from './components/Layout/Layout'
 import { HomePage } from './pages/HomePage/HomePage'
 import { PrivacyPage } from './pages/PrivacyPage/PrivacyPage'
@@ -13,6 +13,12 @@ function getRoute(): Route {
   return 'home'
 }
 
+const TITLES: Record<Route, string> = {
+  home: 'Beamup Studios',
+  privacy: 'Privacy Policy · Beamup Studios',
+  terms: 'Terms of Service · Beamup Studios',
+}
+
 function App() {
   const [route, setRoute] = useState<Route>(getRoute)
 
@@ -22,15 +28,27 @@ function App() {
     return () => window.removeEventListener('popstate', onPopState)
   }, [])
 
-  const navigate = (path: string) => (e: React.MouseEvent) => {
-    e.preventDefault()
+  useEffect(() => {
+    document.title = TITLES[route]
+    const id = window.location.hash.replace('#', '')
+    const target = id ? document.getElementById(id) : null
+    if (target) {
+      target.scrollIntoView()
+      return
+    }
+    window.scrollTo(0, 0)
+    document.querySelector('.page__main')?.scrollTo(0, 0)
+  }, [route])
+
+  const navigate = (path: string) => (event: React.MouseEvent) => {
+    event.preventDefault()
     window.history.pushState({}, '', path)
     setRoute(getRoute())
   }
 
   return (
     <Layout route={route} onNavigate={navigate}>
-      {route === 'home' && <HomePage />}
+      {route === 'home' && <HomePage onNavigate={navigate} />}
       {route === 'privacy' && <PrivacyPage onNavigate={navigate} />}
       {route === 'terms' && <TermsPage onNavigate={navigate} />}
     </Layout>

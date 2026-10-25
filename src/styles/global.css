@@ -1,78 +1,118 @@
-/**
- * Page-wide styles: layout shell, cursor, spotlight.
- * Applied at the root/layout layer.
- */
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.page {
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden;
-  background: rgb(255, 255, 255);
-  cursor: none;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-}
-
-/* Bullet journal dot grid (when .page--bujo is set via BULLET_JOURNAL_BACKGROUND) */
-.page--bujo {
-  background-color: rgb(255, 255, 255);
-  background-image: radial-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-.custom-cursor {
+.reticle {
   position: fixed;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgb(0, 0, 0);
+  left: 0;
+  top: 0;
+  z-index: 40;
+  width: 0;
+  height: 0;
   pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-  opacity: 1;
-  transition: opacity 0.2s ease;
+  mix-blend-mode: screen;
 }
 
-.page.hero-hover .custom-cursor {
+.reticle.is-off {
   opacity: 0;
 }
 
-.invert-spotlight {
-  position: fixed;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgb(255, 255, 255);
-  mix-blend-mode: difference;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 9998;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+.reticle__dot,
+.reticle__ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  will-change: transform;
 }
 
-.page.hero-hover .invert-spotlight {
-  opacity: 1;
+.reticle__hair,
+.reticle__hair::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+}
+
+.reticle__hair {
+  width: 1px;
+  height: 14px;
+  margin: -7px 0 0 -0.5px;
+  background: linear-gradient(to bottom, transparent, #f4fbff 42%, #f4fbff 58%, transparent);
+  box-shadow:
+    0 0 6px 1px rgba(150, 210, 255, 0.9),
+    0 0 16px 4px rgba(50, 120, 255, 0.45);
+  transition:
+    height 0.18s ease,
+    margin 0.18s ease,
+    box-shadow 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.reticle__hair::before {
+  content: '';
+  width: 14px;
+  height: 1px;
+  margin: 6.5px 0 0 -6.5px;
+  background: linear-gradient(to right, transparent, #f4fbff 40%, #f4fbff 60%, transparent);
+  box-shadow: 0 0 6px rgba(140, 200, 255, 0.8);
+  transition:
+    width 0.18s ease,
+    margin 0.18s ease;
+}
+
+.reticle__hair--ghost {
+  height: 22px;
+  margin-top: -11px;
+  opacity: 0.38;
+  box-shadow: 0 0 12px 3px rgba(70, 150, 255, 0.35);
+}
+
+.reticle__hair--ghost::before {
+  width: 22px;
+  margin: 10.5px 0 0 -10.5px;
+}
+
+.reticle.is-hot .reticle__hair {
+  height: 8px;
+  margin-top: -4px;
+  box-shadow:
+    0 0 4px 1px rgba(244, 251, 255, 0.95),
+    0 0 8px 2px rgba(90, 170, 255, 0.75);
+}
+
+.reticle.is-hot .reticle__hair::before {
+  width: 8px;
+  margin: 3.5px 0 0 -3.5px;
+}
+
+.reticle.is-hot .reticle__hair--ghost {
+  height: 12px;
+  margin-top: -6px;
+  opacity: 0.7;
+}
+
+.reticle.is-hot .reticle__hair--ghost::before {
+  width: 12px;
+  margin: 5.5px 0 0 -5.5px;
+}
+
+.reticle.is-down .reticle__hair {
+  height: 6px;
+  margin-top: -3px;
+}
+
+.reticle.is-down .reticle__hair::before {
+  width: 6px;
+  margin: 2.5px 0 0 -2.5px;
 }
 
 @media (pointer: coarse) {
-  .page {
-    cursor: auto;
-  }
-
-  .custom-cursor {
+  .reticle {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reticle__hair,
+  .reticle__hair::before {
+    transition: none;
   }
 }

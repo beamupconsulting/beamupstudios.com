@@ -1,49 +1,52 @@
 .privacy__section {
-  margin-bottom: 32px;
+  margin: 0 0 36px;
+  scroll-margin-top: 20px;
 }
 
 .privacy__section-title {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  color: rgb(0, 0, 0);
-  margin: 0 0 12px;
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  margin: 0 0 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
 }
 
-.privacy__section-body {
-  margin: 0;
-}
-
-.privacy__section-body ul {
-  margin: 0 0 12px;
-  padding-left: 1.25em;
-}
-
-.privacy__section-body li {
-  margin-bottom: 8px;
+.privacy__section-title span {
+  color: var(--beam);
+  font-variant-numeric: tabular-nums;
 }
 
 .privacy__section-body p {
   margin: 0 0 12px;
 }
 
-.privacy__contact {
-  margin: 12px 0 0;
-  padding: 16px 0 0;
+.privacy__section-body ul {
+  margin: 0 0 12px;
+  padding-left: 1.15em;
 }
 
-.privacy__contact a {
-  color: rgb(0, 0, 0);
-  text-decoration: underline;
+.privacy__section-body li {
+  margin-bottom: 8px;
 }
 
-.privacy__contact a:hover {
-  color: rgb(100, 100, 100);
+.privacy__section-body li::marker {
+  color: var(--dim);
 }
 
-@media (max-width: 809px) {
-  .privacy__section-title {
-    font-size: 16px;
-  }
+.privacy__section-body strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.legal-sub {
+  margin: 20px 0 8px;
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }

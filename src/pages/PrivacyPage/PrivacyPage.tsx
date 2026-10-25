@@ -1,9 +1,15 @@
 import {
   BACK_LABEL,
   COMPANY_LEGAL_NAME,
+  EMAIL,
+  GOOGLE_PRIVACY_URL,
   LEGAL_EMAIL,
+  META_PRIVACY_URL,
+  OPC_URL,
   PRIVACY_LAST_UPDATED,
   PRIVACY_PAGE_TITLE,
+  ROUTE_TERMS,
+  SITE_HOST,
 } from '../../constants'
 import { BackArrow } from '../../components/icons'
 import { Footer } from '../../components/Footer/Footer'
@@ -11,7 +17,19 @@ import { LegalSection } from '../../components/LegalSection/LegalSection'
 import '../LegalPage/LegalPage.css'
 
 type PrivacyPageProps = {
-  onNavigate: (path: string) => (e: React.MouseEvent) => void
+  onNavigate: (path: string) => (event: React.MouseEvent) => void
+}
+
+function mail(subject: string) {
+  return `mailto:${LEGAL_EMAIL}?subject=${encodeURIComponent(subject)}`
+}
+
+function Out({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      {children}
+    </a>
+  )
 }
 
 export function PrivacyPage({ onNavigate }: PrivacyPageProps) {
@@ -24,65 +42,63 @@ export function PrivacyPage({ onNavigate }: PrivacyPageProps) {
         </a>
         <h1 className="privacy__title">{PRIVACY_PAGE_TITLE}</h1>
         <p className="privacy__updated">{PRIVACY_LAST_UPDATED}</p>
+        <p className="legal-note">
+          This policy covers {SITE_HOST} only. A software product is covered by the privacy notice on that product. A consulting engagement is covered by the agreement for that engagement. This site does not use advertising pixels.
+        </p>
         <div className="privacy__content">
-          <LegalSection number={1} title="INTRODUCTION AND SCOPE">
-            This Privacy Policy (the "Policy") describes how {COMPANY_LEGAL_NAME}, operating and also known as BeamUp Studios ("we," "us," "our," or the "Company"), collects, uses, and discloses information in the course of operating our website (beamupstudios.com), delivering freelance software engineering services, and providing web or mobile applications (collectively, the "Services").
-            <p>By accessing our website, engaging us for consulting, or using any software built by us, you acknowledge that you have read and understood this Policy and agree to the collection and use of information as described herein. If you do not agree to these terms, you must immediately cease all use of our Services.</p>
+          <LegalSection number={1} title="This website only">
+            <p>
+              {COMPANY_LEGAL_NAME} ("BeamUp," "we") publishes this website under the name Beamup Studios. This policy describes personal information we handle through {SITE_HOST} and through messages about the studio.
+            </p>
+            <p>
+              It does not describe a software product, and it does not describe a consulting engagement. Those have their own privacy notices and agreements. If one of those documents and this policy differ about that product or that engagement, that document wins.
+            </p>
           </LegalSection>
-          <LegalSection number={2} title="BROAD SPECTRUM DATA COLLECTION">
-            To provide the most robust de-risking possible, you acknowledge that the Company may collect, and you consent to the collection of, the following categories of data, whether collected explicitly or incidentally through standard server operations:
+
+          <LegalSection number={2} title="What this site collects">
             <ul>
-              <li><strong>Identity and Contact Data:</strong> Including but not limited to names, email addresses, phone numbers, and business identifiers.</li>
-              <li><strong>Technical and Usage Data:</strong> Including IP addresses, browser types, device identifiers, time zones, operating systems, referral sources, length of visit, page views, and website navigation paths.</li>
-              <li><strong>Log Data:</strong> Our servers automatically record information ("Log Data") which may include information such as your device's Internet Protocol ("IP") address, browser version, the pages of our Services that you visit, the time and date of your visit, and other statistics.</li>
-              <li><strong>Interactions and Feedback:</strong> Any communications, support requests, or feedback provided directly to the Company.</li>
-              <li><strong>Incidental Metadata:</strong> Any data points generated through the use of modern development frameworks, API calls, or third-party integrations that may be captured during the software development lifecycle.</li>
+              <li>
+                <strong>Email.</strong> If you write to <a href={`mailto:${EMAIL}`}>{EMAIL}</a> or <a href={`mailto:${LEGAL_EMAIL}`}>{LEGAL_EMAIL}</a>, we receive whatever you put in the message so we can reply. The gmail address is a Google mailbox.
+              </li>
+              <li>
+                <strong>Booking.</strong> "Book a call" opens a scheduling page Google operates. From there, Google's <Out href={GOOGLE_PRIVACY_URL}>privacy policy</Out> applies. We receive the booking details Google shares with us.
+              </li>
+              <li>
+                <strong>Server logs.</strong> The host may record an IP address, the time, the browser, and the URL requested, so the page can be delivered and so we can deal with abuse. We keep those logs for up to 90 days unless we need one longer for a security incident.
+              </li>
             </ul>
+            <p>
+              This website does not use advertising pixels, analytics products, session replay, or advertising cookies. We do not sell personal information from this site, and we do not share it for cross-context behavioral advertising. We keep studio correspondence for up to 24 months unless a legal claim requires longer.
+            </p>
           </LegalSection>
-          <LegalSection number={3} title="THIRD-PARTY INFRASTRUCTURE RELIANCE">
-            The Company does not maintain its own physical data centers. We rely on third-party "Best-in-Class" infrastructure providers, including but not limited to Amazon Web Services (AWS), Vercel, Stripe, and GitHub.
-            <ul>
-              <li><strong>No Direct Management:</strong> You acknowledge that we do not have direct control over the physical security or internal data-handling protocols of these third-party providers.</li>
-              <li><strong>Liability Waiver:</strong> The Company assumes zero liability for any data breach, leak, or corruption occurring at the infrastructure level. Your sole recourse for such events lies with the respective third-party provider.</li>
-              <li><strong>International Transfers:</strong> Data may be transferred to, and maintained on, computers located outside of Ontario and Canada, where privacy laws may not be as protective. Your consent to this Policy represents your agreement to that transfer.</li>
-            </ul>
+
+          <LegalSection number={3} title="Products and ads" id="advertising">
+            <p>
+              Software we publish may use advertising and measurement tools, including tools from Meta Platforms, Inc. and its affiliates (Facebook and Instagram) and similar providers. What those tools receive, and the choices you have, are described in that product's privacy notice. Meta's policy is at <Out href={META_PRIVACY_URL}>facebook.com/privacy/policy</Out>.
+            </p>
+            <p>This policy is not that notice, and it is not consent to tracking on a product. This website does not load those tools.</p>
           </LegalSection>
-          <LegalSection number={4} title="PURPOSE OF DATA PROCESSING">
-            We use the collected information for broad business purposes to ensure maximum operational flexibility:
-            <ul>
-              <li>To provide, maintain, and improve our software and consulting services.</li>
-              <li>To process transactions and manage project milestones.</li>
-              <li>To monitor and analyze usage patterns and technical trends.</li>
-              <li>To detect, prevent, and address technical issues or security vulnerabilities.</li>
-              <li>To comply with legal obligations under the laws of Ontario and the federal laws of Canada.</li>
-            </ul>
+
+          <LegalSection number={4} title="Your requests">
+            <p>
+              You can ask us what we hold about you from this website, ask us to correct it, or ask us to delete it, by emailing <a href={mail('Privacy request')}>{LEGAL_EMAIL}</a> with the subject "Privacy request." We will verify that the request is yours. California residents can use the same address to ask us to confirm that we do not sell or share personal information from this site.
+            </p>
+            <p>
+              You can complain to the Office of the Privacy Commissioner of Canada at <Out href={OPC_URL}>priv.gc.ca</Out>. This site is not directed at anyone under 16, and we do not knowingly collect their information.
+            </p>
           </LegalSection>
-          <LegalSection number={5} title="DATA RETENTION AND DISPOSAL">
-            The Company will retain your personal information only for as long as is necessary for the purposes set out in this Policy. We make no specific representations regarding the definitive timeline for data disposal. You acknowledge that "backups" or "cached versions" of data may persist in third-party systems or developer environments even after a deletion request has been processed.
+
+          <LegalSection number={5} title="Disputes">
+            <p>
+              A dispute about this policy, as it applies to this website, is handled under the dispute section of the <a href={`${ROUTE_TERMS}#disputes`} onClick={onNavigate(`${ROUTE_TERMS}#disputes`)}>Terms of Service</a>. That does not limit a complaint to a privacy regulator. A dispute about a product or a consulting engagement follows the notice or agreement for that product or engagement.
+            </p>
           </LegalSection>
-          <LegalSection number={6} title={'NO GUARANTEE OF SECURITY ("AS-IS" HANDLING)'}>
-            While we implement standard security measures, you acknowledge that no method of transmission over the Internet, or method of electronic storage, is 100% secure.
-            <p><strong>High-Risk Acknowledgment:</strong> You use our Services at your own risk. The Company does not warrant that its data handling is "fail-safe" or "unbreakable."</p>
-            <p><strong>No Liability for Negligence:</strong> To the extent permitted by Ontario law, the Company is not liable for data exposure resulting from unintended software bugs, zero-day vulnerabilities, or administrative errors.</p>
-          </LegalSection>
-          <LegalSection number={7} title="YOUR RIGHTS UNDER PIPEDA">
-            In accordance with the Personal Information Protection and Electronic Documents Act (PIPEDA), you have the right to request access to the personal information we hold about you.
-            <ul>
-              <li><strong>Verification Requirement:</strong> To protect against unauthorized access, we will require rigorous proof of identity before processing any data request.</li>
-              <li><strong>Limited Remedy:</strong> Your sole remedy for any dissatisfaction with our data practices is the deletion of your account and the cessation of use of our Services.</li>
-            </ul>
-          </LegalSection>
-          <LegalSection number={8} title="INDEMNIFICATION BY CLIENTS">
-            For consulting engagements, the Client warrants that they have the legal right to provide any data to {COMPANY_LEGAL_NAME} for the purpose of development. The Client shall indemnify, defend, and hold the Company harmless from any and all third-party claims, losses, or regulatory fines arising from the Client's data collection or the deployment of software built by the Company.
-          </LegalSection>
-          <LegalSection number={9} title="CHANGES TO THIS POLICY">
-            We reserve the right to update or change our Privacy Policy at any time. Your continued use of the Service after we post any modifications to the Privacy Policy on this page will constitute your acknowledgment of the modifications and your consent to abide and be bound by the modified Privacy Policy.
-          </LegalSection>
-          <LegalSection number={10} title="CONTACT INFORMATION">
-            For any legal inquiries regarding these terms, contact:
-            <p className="privacy__contact">
-              {COMPANY_LEGAL_NAME}<br />
-              <a href={`mailto:${LEGAL_EMAIL}`} target="_blank">{LEGAL_EMAIL}</a>
+
+          <LegalSection number={6} title="Contact">
+            <p>
+              {COMPANY_LEGAL_NAME}
+              <br />
+              <a href={mail('Privacy request')}>{LEGAL_EMAIL}</a>
             </p>
           </LegalSection>
         </div>

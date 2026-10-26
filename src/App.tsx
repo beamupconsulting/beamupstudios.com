@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { COMPANY_DISPLAY_NAME } from './constants'
 import { Layout } from './components/Layout/Layout'
 import { HomePage } from './pages/HomePage/HomePage'
 import { PrivacyPage } from './pages/PrivacyPage/PrivacyPage'
@@ -14,9 +15,9 @@ function getRoute(): Route {
 }
 
 const TITLES: Record<Route, string> = {
-  home: 'Beamup Studios',
-  privacy: 'Privacy Policy · Beamup Studios',
-  terms: 'Terms of Service · Beamup Studios',
+  home: COMPANY_DISPLAY_NAME,
+  privacy: `Privacy Policy · ${COMPANY_DISPLAY_NAME}`,
+  terms: `Terms of Service · ${COMPANY_DISPLAY_NAME}`,
 }
 
 function App() {

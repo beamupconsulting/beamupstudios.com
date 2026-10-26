@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { BeamScene } from '../../components/BeamScene/BeamScene'
 import {
+  COMPANY_DISPLAY_NAME,
   COMPANY_LEGAL_NAME,
   COMPANY_MARK,
   EMAIL,
@@ -336,7 +337,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 <p className="kicker">Studio</p>
                 <h2>What we do.</h2>
                 <p className="dek">
-                  Beamup Studios is a technical engine. We build the software, we work inside other teams, and we ship
+                  {COMPANY_DISPLAY_NAME} is a technical engine. We build the software, we work inside other teams, and we ship
                   products of our own.
                 </p>
                 <div className="spec">

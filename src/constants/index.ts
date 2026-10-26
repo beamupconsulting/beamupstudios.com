@@ -1,9 +1,12 @@
 /** Company & branding */
-export const COMPANY_DISPLAY_NAME = 'Beamup Studios'
+export const COMPANY_DISPLAY_NAME = 'BeamUp Studios'
 export const COMPANY_MARK = 'BEAMUP'
 export const COMPANY_LEGAL_NAME = 'BeamUp Consulting Inc.'
 export const SITE_HOST = 'beamupstudios.com'
 export const SITE_URL = 'https://beamupstudios.com'
+export const SITE_DESCRIPTION =
+  'BeamUp Studios is the technical engine for software that ships. Engineering, consulting, and apps.'
+export const SITE_TAGLINE = 'The technical engine for software that ships.'
 
 /** Contact. The public studio address is the homepage. Legal mail stays on the gmail. */
 export const EMAIL = 'hello@beamupstudios.com'

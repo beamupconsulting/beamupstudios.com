@@ -1,6 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <rect width="32" height="32" rx="7" fill="#090908"/>
-  <path d="M5 16.5h8.2" stroke="#FFF4E6" stroke-width="1.4"/>
-  <path d="M13.2 12.2 19.4 16.5 13.2 20.8Z" stroke="#EBE6DC" stroke-width="1.2" stroke-linejoin="round"/>
-  <path d="M18.6 16.5h8" stroke="#FF5C1C" stroke-width="1.3"/>
+  <rect width="32" height="32" rx="7" fill="#05060e"/>
+  <defs>
+    <linearGradient id="core" x1="16" y1="3" x2="16" y2="29" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9fd4ff"/>
+      <stop offset="0.55" stop-color="#f4fbff"/>
+      <stop offset="1" stop-color="#d7ecff"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-10%" width="180%" height="120%">
+      <feGaussianBlur stdDeviation="1.35"/>
+    </filter>
+  </defs>
+  <rect x="12.4" y="3" width="7.2" height="26" rx="3.6" fill="#2f6dff" filter="url(#glow)" opacity="0.95"/>
+  <rect x="15" y="3" width="2" height="26" rx="1" fill="url(#core)"/>
 </svg>

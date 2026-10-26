@@ -1,5 +1,6 @@
 import {
   BACK_LABEL,
+  COMPANY_DISPLAY_NAME,
   COMPANY_LEGAL_NAME,
   LEGAL_EMAIL,
   ROUTE_PRIVACY,
@@ -37,7 +38,7 @@ export function TermsPage({ onNavigate }: TermsPageProps) {
         <div className="privacy__content">
           <LegalSection number={1} title="This website">
             <p>
-              These terms are between you and {COMPANY_LEGAL_NAME} ("BeamUp," "we"). We publish {SITE_HOST} under the name Beamup Studios. The site is the brand. It is not a software product and it is not a consulting agreement. If you use the site, you agree to these terms for the site only.
+              These terms are between you and {COMPANY_LEGAL_NAME} ("BeamUp," "we"). We publish {SITE_HOST} under the name {COMPANY_DISPLAY_NAME}. The site is the brand. It is not a software product and it is not a consulting agreement. If you use the site, you agree to these terms for the site only.
             </p>
           </LegalSection>
 

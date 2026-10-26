@@ -1,5 +1,6 @@
 import {
   BACK_LABEL,
+  COMPANY_DISPLAY_NAME,
   COMPANY_LEGAL_NAME,
   EMAIL,
   GOOGLE_PRIVACY_URL,
@@ -48,7 +49,7 @@ export function PrivacyPage({ onNavigate }: PrivacyPageProps) {
         <div className="privacy__content">
           <LegalSection number={1} title="This website only">
             <p>
-              {COMPANY_LEGAL_NAME} ("BeamUp," "we") publishes this website under the name Beamup Studios. This policy describes personal information we handle through {SITE_HOST} and through messages about the studio.
+              {COMPANY_LEGAL_NAME} ("BeamUp," "we") publishes this website under the name {COMPANY_DISPLAY_NAME}. This policy describes personal information we handle through {SITE_HOST} and through messages about the studio.
             </p>
             <p>
               It does not describe a software product, and it does not describe a consulting engagement. Those have their own privacy notices and agreements. If one of those documents and this policy differ about that product or that engagement, that document wins.

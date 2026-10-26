@@ -9,7 +9,6 @@ import {
   OPC_URL,
   PRIVACY_LAST_UPDATED,
   PRIVACY_PAGE_TITLE,
-  ROUTE_TERMS,
   SITE_HOST,
 } from '../../constants'
 import { BackArrow } from '../../components/icons'
@@ -89,13 +88,7 @@ export function PrivacyPage({ onNavigate }: PrivacyPageProps) {
             </p>
           </LegalSection>
 
-          <LegalSection number={5} title="Disputes">
-            <p>
-              A dispute about this policy, as it applies to this website, is handled under the dispute section of the <a href={`${ROUTE_TERMS}#disputes`} onClick={onNavigate(`${ROUTE_TERMS}#disputes`)}>Terms of Service</a>. That does not limit a complaint to a privacy regulator. A dispute about a product or a consulting engagement follows the notice or agreement for that product or engagement.
-            </p>
-          </LegalSection>
-
-          <LegalSection number={6} title="Contact">
+          <LegalSection number={5} title="Contact">
             <p>
               {COMPANY_LEGAL_NAME}
               <br />

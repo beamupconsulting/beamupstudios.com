@@ -18,10 +18,6 @@ type TermsPageProps = {
   onNavigate: (path: string) => (event: React.MouseEvent) => void
 }
 
-function mail(subject: string) {
-  return `mailto:${LEGAL_EMAIL}?subject=${encodeURIComponent(subject)}`
-}
-
 export function TermsPage({ onNavigate }: TermsPageProps) {
   return (
     <>
@@ -33,7 +29,7 @@ export function TermsPage({ onNavigate }: TermsPageProps) {
         <h1 className="privacy__title">{TERMS_PAGE_TITLE}</h1>
         <p className="privacy__updated">{TERMS_EFFECTIVE_DATE}</p>
         <p className="legal-note">
-          This page covers the brand site only. Consulting engagements follow their own agreement. Software products follow the terms on that product. Disputes about this website go to individual arbitration, and class actions are waived, to the extent the law allows.
+          This page covers the brand site only. Consulting follows its own agreement. A software product follows the terms on that product. This website is not a promise to pay anyone.
         </p>
         <div className="privacy__content">
           <LegalSection number={1} title="This website">
@@ -42,12 +38,12 @@ export function TermsPage({ onNavigate }: TermsPageProps) {
             </p>
           </LegalSection>
 
-          <LegalSection number={2} title="Separate from everything else" id="separate">
+          <LegalSection number={2} title="Separate from everything else">
             <p>
-              A consulting engagement is governed by the written agreement for that engagement. A software product is governed by the terms and privacy notice published for that product. If one of those documents and this page ever differ about that engagement or that product, that document wins.
+              A consulting engagement is governed by the written agreement for that engagement. A software product is governed by the terms and privacy notice published for that product. If one of those documents and this page differ about that engagement or that product, that document wins.
             </p>
             <p>
-              This page does not add terms to a product or an engagement, and those documents do not add terms to this site. Payment for one is not payment for the other. A claim about one is not a claim about the other.
+              This page does not add terms to a product or an engagement, and those documents do not add terms to this site. A claim about one is not a claim about the other.
             </p>
           </LegalSection>
 
@@ -57,31 +53,16 @@ export function TermsPage({ onNavigate }: TermsPageProps) {
             </p>
           </LegalSection>
 
-          <LegalSection number={4} title="Liability for this website" id="liability">
+          <LegalSection number={4} title="No liability">
             <p>
-              To the maximum extent the law allows, we and our directors, officers, and contractors are not liable for indirect, incidental, special, consequential, or punitive damages, or for lost profits, revenue, data, or business, arising out of this website.
+              To the fullest extent the law allows, {COMPANY_LEGAL_NAME} and its directors, officers, and contractors are not liable for anything arising out of this website or your use of it. That includes direct, indirect, incidental, special, consequential, and punitive damages, and lost profits, revenue, data, or business.
             </p>
             <p>
-              Our total liability arising out of this website is CAD $100. That cap does not apply to liability the law does not allow us to limit, including fraud and willful misconduct. A claim about a product or a consulting engagement is not a claim under these terms. If a court treats it as one anyway, the cap for that claim is CAD $100.
-            </p>
-          </LegalSection>
-
-          <LegalSection number={5} title="Disputes about this website" id="disputes">
-            <p>
-              This section is only about this website. A dispute about a product or a consulting engagement follows the document that governs it.
-            </p>
-            <p>
-              Before filing, email <a href={mail('Dispute notice')}>{LEGAL_EMAIL}</a> with the subject "Dispute notice" and give us 30 days. Except where a statute gives you a non-waivable right to sue in court, the dispute is then resolved by confidential, individual arbitration in Toronto, Ontario, in English, before one arbitrator, under the Arbitration Act, 1991 (Ontario) and the ADR Institute of Canada rules. No class, collective, or representative proceeding, to the extent the law allows.
-            </p>
-            <p>
-              You can opt out of arbitration within 30 days of first visiting the site by emailing <a href={mail('Arbitration opt-out')}>{LEGAL_EMAIL}</a> with the subject "Arbitration opt-out" and your name and address. An individual claim that qualifies can still go to small claims court in Toronto. If you are an individual, or the claim is under CAD $25,000, we pay the arbitration fees above what it would cost to file in the Ontario Superior Court of Justice.
-            </p>
-            <p>
-              Ontario law and the federal laws of Canada govern. If a claim is not arbitrated, the courts of Toronto have exclusive jurisdiction. If a statute forbids the class waiver or the arbitration for a particular claim, that claim goes to those courts and the rest of this section still applies.
+              If the law does not allow a complete exclusion, liability is limited to the smallest amount the law allows. Nothing on this site is an offer to pay you, reimburse you, or take on a dispute for you. A claim about a product or a consulting engagement is not a claim under these terms.
             </p>
           </LegalSection>
 
-          <LegalSection number={6} title="Contact">
+          <LegalSection number={5} title="Contact">
             <p>
               {COMPANY_LEGAL_NAME}
               <br />

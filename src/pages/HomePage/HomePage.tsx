@@ -19,10 +19,8 @@ type HomePageProps = {
 
 const YEAR = new Date().getFullYear()
 
-const KNEE = 0.38
-const TAIL = 1 - KNEE
-const CUBIC = 8 / 3
-const EFFORT_MAX = KNEE + TAIL * (1 + CUBIC)
+const HOLD = 0.84
+const RELEASE = 0.36
 
 const SPEC = [
   {
@@ -54,18 +52,12 @@ function hashJump() {
 function toProgress(energy: number, reduced: boolean) {
   const t = Math.min(1, Math.max(0, energy))
   if (reduced) return t
-  const target = t * EFFORT_MAX
-  if (target <= KNEE) return target
-  const uTarget = (target - KNEE) / TAIL
-  let lo = 0
-  let hi = 1
-  for (let i = 0; i < 16; i++) {
-    const mid = (lo + hi) * 0.5
-    const f = mid + CUBIC * mid * mid * mid
-    if (f < uTarget) lo = mid
-    else hi = mid
+  if (t <= HOLD) {
+    const u = t / HOLD
+    return RELEASE * Math.pow(u, 1.5)
   }
-  return KNEE + TAIL * ((lo + hi) * 0.5)
+  const u = (t - HOLD) / (1 - HOLD)
+  return RELEASE + (1 - RELEASE) * (1 - Math.pow(1 - u, 3.4))
 }
 
 async function copyText(value: string) {
@@ -131,9 +123,11 @@ export function HomePage({ onNavigate }: HomePageProps) {
 
     const reduced = prefersReducedMotion()
     let shown = progress.current
-    let heroOn = shown < 0.4
-    let plateOn = shown > 0.5
+    let play: 'scrub' | 'forward' | 'back' = energyRef.current >= HOLD ? 'forward' : 'scrub'
+    let heroOn = shown < 0.34
+    let plateOn = shown > 0.46
     let frame = 0
+    const glide = 0.034
 
     const paintFlags = (nextHero: boolean, nextPlate: boolean) => {
       if (nextHero !== heroOn) {
@@ -151,32 +145,41 @@ export function HomePage({ onNavigate }: HomePageProps) {
     }
 
     const travel = () => {
-      const screens = reduced ? 1.15 : window.innerWidth < 820 ? 3.1 : 4.1
+      const screens = reduced ? 1.15 : window.innerWidth < 820 ? 1.85 : 3.3
       return window.innerHeight * screens
     }
 
     const apply = (dy: number) => {
       const overflow = plate.scrollHeight - plate.clientHeight > 4
-      const atEnd = energyRef.current >= 0.999 && shown > 0.97
-      if (overflow) {
-        if (dy > 0 && atEnd) {
+      if (overflow && dy < 0 && plate.scrollTop > 0) {
+        const next = plate.scrollTop + dy
+        if (next > 0) {
+          plate.scrollTop = next
+          return
+        }
+        plate.scrollTop = 0
+        dy = next
+      }
+      if (!reduced && play === 'forward') {
+        if (dy > 0 && shown > 0.97 && overflow) {
           plate.scrollTop += dy
           return
         }
-        if (dy < 0 && plate.scrollTop > 0) {
-          const next = plate.scrollTop + dy
-          if (next > 0) {
-            plate.scrollTop = next
-            return
-          }
+        if (dy < 0) {
+          play = 'back'
           plate.scrollTop = 0
-          dy = next
         }
+        return
+      }
+      if (!reduced && play === 'back') {
+        if (dy > 0) play = 'forward'
+        return
       }
       const cap = window.innerHeight * 0.5
       const clamped = Math.max(-cap, Math.min(cap, dy))
       energyRef.current = Math.min(1, Math.max(0, energyRef.current + clamped / travel()))
       push.current = Math.min(1, push.current + Math.min(1, Math.abs(clamped) / 80) * 0.65)
+      if (!reduced && energyRef.current >= HOLD) play = 'forward'
     }
 
     nudge.current = (amount) => apply(amount * travel())
@@ -243,18 +246,32 @@ export function HomePage({ onNavigate }: HomePageProps) {
       apply(step * travel())
     }
 
-    paintFlags(shown < 0.4, shown > 0.5)
+    paintFlags(shown < 0.34, shown > 0.46)
     stage.style.setProperty('--p', shown.toFixed(4))
 
     const tick = () => {
-      const target = toProgress(energyRef.current, reduced)
-      const k = reduced ? 1 : 0.16
-      shown += (target - shown) * k
-      if (Math.abs(target - shown) < 0.0004) shown = target
+      if (reduced) {
+        shown = toProgress(energyRef.current, true)
+      } else if (play === 'forward') {
+        energyRef.current = 1
+        shown += (1 - shown) * glide
+        if (1 - shown < 0.0008) shown = 1
+      } else if (play === 'back') {
+        energyRef.current = 0
+        shown += -shown * glide
+        if (shown < 0.0008) {
+          shown = 0
+          play = 'scrub'
+        }
+      } else {
+        const target = toProgress(energyRef.current, false)
+        shown += (target - shown) * 0.1
+        if (Math.abs(target - shown) < 0.0004) shown = target
+      }
       progress.current = shown
       push.current *= 0.9
       stage.style.setProperty('--p', shown.toFixed(4))
-      paintFlags(shown < 0.4, shown > 0.52)
+      paintFlags(shown < 0.34, shown > 0.46)
       frame = requestAnimationFrame(tick)
     }
 
